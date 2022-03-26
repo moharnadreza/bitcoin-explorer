@@ -1,0 +1,19 @@
+.base {
+  @apply w-full py-2 px-6 text-gray-800 rounded-xl;
+  @apply transition-colors duration-100 ease-out;
+  @apply border-2 border-gray-300 placeholder-gray-400;
+
+  &:disabled {
+    @apply pointer-events-none bg-gray-100;
+  }
+  &:focus {
+    @apply focus:outline-none focus:border-indigo-700;
+  }
+}
+.error {
+  @apply border-red-500;
+
+  &:focus {
+    @apply focus:outline-none focus:border-red-700;
+  }
+}

@@ -1,0 +1,12 @@
+.base {
+  @apply relative;
+}
+.label {
+  @apply block text-sm mb-1 font-medium text-gray-700;
+}
+.errorMessage {
+  @apply text-red-500 absolute -bottom-5 left-0 text-xs font-medium break-words;
+}
+.disabled {
+  @apply cursor-default;
+}
