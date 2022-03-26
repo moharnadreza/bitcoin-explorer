@@ -22,5 +22,5 @@
   @apply px-2.5 py-1.5 text-xs;
 }
 .medium {
-  @apply px-4 py-2 text-sm;
+  @apply px-5 py-2.5 text-sm;
 }
