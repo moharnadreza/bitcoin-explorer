@@ -15,9 +15,14 @@ const callSearchQueryByType: Record<
 type Params = {
   searchQuery: string;
   type?: SearchQueryType;
+  enabled?: boolean;
 };
 
-export const useSearchQuery = ({ type, searchQuery }: Params) => {
+export const useSearchQuery = ({
+  type,
+  searchQuery,
+  enabled = false,
+}: Params) => {
   const { data, refetch, isFetching } = useQuery(
     `/${type}/${searchQuery}`,
     () =>
@@ -26,8 +31,9 @@ export const useSearchQuery = ({ type, searchQuery }: Params) => {
       onError: () => {
         toast.error('Failed to load data, try again later.');
       },
-      enabled: false,
+      enabled,
       retry: false,
+      refetchOnWindowFocus: false,
     }
   );
 
