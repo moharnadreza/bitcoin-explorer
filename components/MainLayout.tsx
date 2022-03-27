@@ -7,7 +7,7 @@ type Props = {
 
 const MainLayout = ({ children }: Props): JSX.Element => {
   return (
-    <div className="container max-w-xl mx-auto px-8 py-16 grid gap-32">
+    <div className="container max-w-4xl mx-auto px-8 py-16 grid gap-32">
       <Header />
 
       <main>{children}</main>

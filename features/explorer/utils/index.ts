@@ -1,9 +1,9 @@
 import { validate as validateBitcoinAddress } from 'bitcoin-address-validation';
-import type { SearchQueryForm, SearchQueryType } from '../types';
+import type { SearchQueryType } from '../types';
 
 type ValidateSearchQueryParams = {
   type: SearchQueryType;
-  validator: (searchQuery: SearchQueryForm['searchQuery']) => boolean;
+  validator: (searchQuery: string) => boolean;
 };
 
 const validateSearchQuery: ValidateSearchQueryParams[] = [
@@ -18,7 +18,7 @@ const validateSearchQuery: ValidateSearchQueryParams[] = [
 ];
 
 export const getSearchQueryType = (
-  searchQuery: SearchQueryForm['searchQuery']
+  searchQuery: string
 ): SearchQueryType | undefined => {
   for (const { type, validator } of validateSearchQuery) {
     if (validator(searchQuery)) return type;

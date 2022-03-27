@@ -1,5 +1,5 @@
 .base {
-  @apply overflow-hidden font-medium border-2 border-transparent rounded-xl;
+  @apply overflow-hidden font-medium border-2 border-transparent;
   @apply inline-flex items-center justify-center space-x-2;
   @apply transition-colors duration-150 ease-in-out;
 
@@ -22,8 +22,8 @@
 
 /* size */
 .small {
-  @apply px-2.5 py-1.5 text-xs;
+  @apply px-2.5 py-1.5 text-xs rounded-lg;
 }
 .medium {
-  @apply px-5 py-2.5 text-sm;
+  @apply px-5 py-2.5 text-sm rounded-xl;
 }

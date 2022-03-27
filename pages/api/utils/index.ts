@@ -20,13 +20,11 @@ export const transformTransactionPayload = ({
 });
 
 export const transformAddressPayload = ({
-  address,
   final_n_tx,
   total_received,
   txrefs,
   final_balance,
 }: AddressResponse) => ({
-  address,
   confirmedTransactions: final_n_tx,
   totalReceived: total_received,
   totalBTCSpent: txrefs?.reduce(
