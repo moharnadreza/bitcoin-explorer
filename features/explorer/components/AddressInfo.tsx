@@ -1,10 +1,9 @@
 import {
-  CheckCircleIcon,
-  DownloadIcon,
-  PlusCircleIcon,
-  ChartPieIcon,
   CashIcon,
+  ChartPieIcon,
+  CheckCircleIcon,
   CreditCardIcon,
+  PlusCircleIcon,
 } from '@heroicons/react/solid';
 import { useMemo } from 'react';
 import { satoshisToBTC } from 'utils/satoshisToBTC';
@@ -17,6 +16,7 @@ const AddressInfo = ({
   confirmedTransactions,
   finalBalance,
   totalReceived,
+  isSubscribed,
   totalBTCSpent,
   totalBTCUnspent,
 }: Props): JSX.Element => {
@@ -60,12 +60,11 @@ const AddressInfo = ({
   );
 
   return (
-    <div className="bg-gray-50 rounded-2xl p-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-      <h2 className="font-bold">Address</h2>
+    <>
       {addressFields.map(({ label, ...rest }) => (
         <AdditionalInfo key={label} label={label} {...rest} />
       ))}
-    </div>
+    </>
   );
 };
 
