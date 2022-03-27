@@ -39,9 +39,9 @@ const AdditionalInfo = ({
   return (
     <div className={wrapperClasses}>
       <IconComponent icon={icon} />
-      <div className="flex-1 flex items-center space-x-1 text-sm">
+      <div className="flex-1 truncate flex items-center space-x-1 text-sm">
         <span className="font-medium">{label}:</span>
-        <span>{value}</span>
+        <span className="flex-1 truncate">{value}</span>
       </div>
 
       {isCopyEnabled && (
