@@ -22,6 +22,10 @@ const App = ({ Component, pageProps }: Props) => {
       <Toaster
         toastOptions={{
           position: 'top-right',
+          duration: 5_000,
+          style: {
+            fontSize: '0.875rem', // text-sm
+          },
         }}
       />
     </QueryClientProvider>
