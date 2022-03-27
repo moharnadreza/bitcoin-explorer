@@ -1,6 +1,7 @@
 import { AxiosResponse } from 'axios';
-import { callGetAddress, callGetTransaction } from '../api';
+import toast from 'react-hot-toast';
 import { useQuery } from 'react-query';
+import { callGetAddress, callGetTransaction } from '../api';
 import type { Address, SearchQueryType, Transaction } from '../types';
 
 const callSearchQueryByType: Record<
@@ -22,8 +23,8 @@ export const useSearchQuery = ({ type, searchQuery }: Params) => {
     () =>
       type && callSearchQueryByType[type](searchQuery).then(({ data }) => data),
     {
-      onError: (error) => {
-        // TODO: handle error
+      onError: () => {
+        toast.error('Failed to load data, try again later.');
       },
       enabled: false,
       retry: false,

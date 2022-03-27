@@ -22,7 +22,7 @@ const addressHandler = async (
 
     res.status(200).json(response);
   } catch (error) {
-    // TODO: handle errors
+    throw new Error('Failed to load data, try again later.');
   }
 };
 
