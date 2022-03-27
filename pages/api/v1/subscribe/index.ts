@@ -1,12 +1,7 @@
-import type { SearchQueryType } from 'features/explorer/types';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { SUBSCRIPTION_TABLE_KEY } from 'pages/api/config';
+import type { SubscriptionTableResponse } from 'pages/api/types';
 import { supabase } from 'pages/api/utils/supabase';
-
-type SubscribedHashTable = {
-  user: string;
-  hash: string;
-};
 
 type Response = {
   message: string;
@@ -22,7 +17,7 @@ const subscribeHandler = async (
 
   try {
     const { data: isSubscribed } = await supabase
-      .from<SubscribedHashTable>(SUBSCRIPTION_TABLE_KEY)
+      .from<SubscriptionTableResponse>(SUBSCRIPTION_TABLE_KEY)
       .select()
       .filter('user', 'eq', user)
       .filter('hash', 'eq', hash)
@@ -30,7 +25,7 @@ const subscribeHandler = async (
 
     if (isSubscribed) {
       await supabase
-        .from<SubscribedHashTable>(SUBSCRIPTION_TABLE_KEY)
+        .from<SubscriptionTableResponse>(SUBSCRIPTION_TABLE_KEY)
         .delete()
         .match({ user, hash });
 
@@ -40,7 +35,7 @@ const subscribeHandler = async (
     }
 
     await supabase
-      .from<SubscribedHashTable>(SUBSCRIPTION_TABLE_KEY)
+      .from<SubscriptionTableResponse>(SUBSCRIPTION_TABLE_KEY)
       .upsert({ user, hash })
       .single();
 
