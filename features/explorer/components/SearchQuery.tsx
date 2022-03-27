@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import { useSearchQuery } from '../hooks/useSearchQuery';
 import { getSearchQueryType } from '../utils';
 import AddressInfo from './AddressInfo';
+import SearchQueryResultWrapper from './SearchQueryResultWrapper';
 import TransactionInfo from './TransactionInfo';
 
 const SearchQueryInfoComponent = {
@@ -49,13 +50,14 @@ const SearchQuery = ({}: Props) => {
     [searchQuery]
   );
 
-  const { data, refetch, isFetching } = useSearchQuery({
-    type: searchType,
-    searchQuery,
-    enabled:
-      Boolean(defaultSearchQuery) &&
-      asPath === `/${searchType?.toLowerCase()}/${searchQuery}`,
-  });
+  const { data, refetch, isFetching, onSubscribe, isSubscribeLoading } =
+    useSearchQuery({
+      type: searchType,
+      searchQuery,
+      enabled:
+        Boolean(defaultSearchQuery) &&
+        asPath === `/${searchType?.toLowerCase()}/${searchQuery}`,
+    });
 
   const onSubmit = async () => {
     if (searchType) {
@@ -71,14 +73,14 @@ const SearchQuery = ({}: Props) => {
 
   const DetailsComponent = useMemo(
     () =>
-      searchType && data
+      searchType
         ? SearchQueryInfoComponent[searchType]
         : SearchQueryInfoComponent['NO_MATCH_TYPE'],
-    [searchType, data]
+    [searchType]
   );
 
   return (
-    <div className="grid gap-24">
+    <div className="grid gap-16">
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col sm:flex-row items-stretch sm:items-end gap-4"
@@ -107,7 +109,16 @@ const SearchQuery = ({}: Props) => {
         </Button>
       </form>
 
-      <DetailsComponent {...(data as any)} />
+      {data && (
+        <SearchQueryResultWrapper
+          searchType={searchType}
+          onSubscribe={onSubscribe}
+          isSubscribed={data?.isSubscribed}
+          isLoading={isSubscribeLoading}
+        >
+          <DetailsComponent {...(data as any)} />
+        </SearchQueryResultWrapper>
+      )}
     </div>
   );
 };

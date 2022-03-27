@@ -85,12 +85,11 @@ const TransactionInfo = ({
   );
 
   return (
-    <div className="bg-gray-50 rounded-2xl p-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-      <h2 className="font-bold">Transaction</h2>
+    <>
       {transactionFields.map(({ label, ...rest }) => (
         <AdditionalInfo key={label} label={label} {...rest} />
       ))}
-    </div>
+    </>
   );
 };
 

@@ -5,7 +5,16 @@ export type SearchQuerySubmitParams = {
   type?: SearchQueryType;
 };
 
-export type Transaction = {
+export type QuerySearchParams = {
+  hash: string;
+  user?: string;
+};
+
+type Subscribed = {
+  isSubscribed?: boolean;
+};
+
+export type Transaction = Subscribed & {
   hash: string;
   fees: number;
   size: number;
@@ -16,7 +25,7 @@ export type Transaction = {
   outputs: number;
 };
 
-export type Address = {
+export type Address = Subscribed & {
   confirmedTransactions: number;
   totalReceived: number;
   totalBTCSpent?: number;

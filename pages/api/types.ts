@@ -64,3 +64,8 @@ export interface AddressResponse {
   final_n_tx: number;
   txrefs?: AddressTXRef[];
 }
+
+export type SubscriptionTableResponse = {
+  user: string;
+  hash: string;
+};
