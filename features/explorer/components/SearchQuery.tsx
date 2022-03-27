@@ -1,7 +1,8 @@
 import { SearchIcon } from '@heroicons/react/solid';
 import Button from 'components/Button';
 import Input from 'components/Input';
-import { useMemo } from 'react';
+import { useRouter } from 'next/router';
+import { useCallback, useEffect, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSearchQuery } from '../hooks/useSearchQuery';
 import { getSearchQueryType } from '../utils';
@@ -18,11 +19,17 @@ type SearchQueryForm = {
   searchQuery: string;
 };
 
-const SearchQuery = () => {
+type Props = {
+  defaultSearchQuery?: string;
+};
+
+const SearchQuery = ({ defaultSearchQuery }: Props) => {
+  const { push } = useRouter();
   const {
     register,
     handleSubmit,
     watch,
+    setValue,
     formState: { errors, isSubmitting, isValid },
   } = useForm<SearchQueryForm>({
     mode: 'all',
@@ -35,10 +42,26 @@ const SearchQuery = () => {
     [searchQuery]
   );
 
-  const { data, refetch } = useSearchQuery({
+  const { data, refetch, isFetching } = useSearchQuery({
     type: searchType,
     searchQuery,
   });
+
+  const onSubmit = useCallback(async () => {
+    if (searchType) {
+      push(`/${searchType.toLowerCase()}/${searchQuery}`);
+      return await refetch();
+    }
+  }, [push, refetch, searchType, searchQuery]);
+
+  const getSearchQuery = useCallback(async () => await refetch(), [refetch]);
+
+  useEffect(() => {
+    if (defaultSearchQuery) {
+      setValue('searchQuery', defaultSearchQuery);
+      getSearchQuery();
+    }
+  }, [defaultSearchQuery, setValue, getSearchQuery]);
 
   const DetailsComponent = useMemo(
     () =>
@@ -47,8 +70,6 @@ const SearchQuery = () => {
         : SearchQueryInfoComponent['NO_MATCH_TYPE'],
     [searchType, data]
   );
-
-  const onSubmit = async () => await refetch();
 
   return (
     <div className="grid gap-24">
@@ -74,7 +95,7 @@ const SearchQuery = () => {
           type="submit"
           icon={<SearchIcon />}
           disabled={!isValid}
-          isLoading={isSubmitting}
+          isLoading={isSubmitting || isFetching}
         >
           Search
         </Button>

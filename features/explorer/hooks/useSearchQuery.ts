@@ -17,7 +17,7 @@ type Params = {
 };
 
 export const useSearchQuery = ({ type, searchQuery }: Params) => {
-  const { data, refetch } = useQuery(
+  const { data, refetch, isFetching } = useQuery(
     `/${type}/${searchQuery}`,
     () =>
       type && callSearchQueryByType[type](searchQuery).then(({ data }) => data),
@@ -30,5 +30,5 @@ export const useSearchQuery = ({ type, searchQuery }: Params) => {
     }
   );
 
-  return { data, refetch };
+  return { data, refetch, isFetching };
 };
