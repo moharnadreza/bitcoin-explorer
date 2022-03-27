@@ -1,8 +1,8 @@
 import Explorer from 'features/explorer';
 import type { NextPage } from 'next';
 
-const Home: NextPage = () => {
+const Address: NextPage = () => {
   return <Explorer />;
 };
 
-export default Home;
+export default Address;
