@@ -53,7 +53,7 @@ export const useSearchQuery = ({
 
   const { refetch: onSubscribe, isFetching: isSubscribeLoading } = useQuery(
     `/${user}/${type}/${searchQuery}`,
-    () => callSubscribe({ user, hash: searchQuery }),
+    () => callSubscribe({ user, hash: searchQuery, type }),
     {
       onSuccess: async () => {
         await refetch();
