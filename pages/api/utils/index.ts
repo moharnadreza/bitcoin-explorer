@@ -1,6 +1,20 @@
+import type { Address, Transaction } from 'features/explorer/types';
+import {
+  satoshisToBTC,
+  satoshisToEUR,
+  satoshisToUSD,
+} from 'utils/satoshisToFiat';
 import type { AddressResponse, TransactionResponse } from '../types';
 
-export const transformTransactionPayload = ({
+const satoshisToFiat = async (satoshis: number) => {
+  return {
+    BTC: satoshisToBTC(satoshis),
+    USD: await satoshisToUSD(satoshis),
+    EUR: await satoshisToEUR(satoshis),
+  };
+};
+
+export const transformTransactionPayload = async ({
   hash,
   fees,
   size,
@@ -8,9 +22,9 @@ export const transformTransactionPayload = ({
   confirmations,
   inputs,
   outputs,
-}: TransactionResponse) => ({
+}: TransactionResponse): Promise<Transaction> => ({
   hash,
-  fees,
+  fees: await satoshisToFiat(fees),
   size,
   received,
   confirmations,
@@ -19,21 +33,25 @@ export const transformTransactionPayload = ({
   outputs: outputs.length,
 });
 
-export const transformAddressPayload = ({
+export const transformAddressPayload = async ({
   final_n_tx,
   total_received,
   txrefs,
   final_balance,
-}: AddressResponse) => ({
+}: AddressResponse): Promise<Address> => ({
   confirmedTransactions: final_n_tx,
-  totalReceived: total_received,
-  totalBTCSpent: txrefs?.reduce(
-    (current, { spent, value }) => (spent ? current + value : 0),
-    0
+  totalReceived: await satoshisToFiat(total_received),
+  totalBTCSpent: await satoshisToFiat(
+    txrefs?.reduce(
+      (current, { spent, value }) => (spent ? current + value : 0),
+      0
+    ) || 0
   ),
-  totalBTCUnSpent: txrefs?.reduce(
-    (current, { spent, value }) => (!spent ? current + value : 0),
-    0
+  totalBTCUnspent: await satoshisToFiat(
+    txrefs?.reduce(
+      (current, { spent, value }) => (!spent ? current + value : 0),
+      0
+    ) || 0
   ),
-  finalBalance: final_balance,
+  finalBalance: await satoshisToFiat(final_balance),
 });

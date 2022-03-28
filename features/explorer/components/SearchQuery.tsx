@@ -2,9 +2,10 @@ import { SearchIcon } from '@heroicons/react/solid';
 import Button from 'components/Button';
 import Input from 'components/Input';
 import { useRouter } from 'next/router';
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSearchQuery } from '../hooks/useSearchQuery';
+import type { FiatMethod } from '../types';
 import { getSearchQueryType } from '../utils';
 import AddressInfo from './AddressInfo';
 import SearchQueryResultWrapper from './SearchQueryResultWrapper';
@@ -20,11 +21,9 @@ type SearchQueryForm = {
   searchQuery: string;
 };
 
-type Props = {
-  defaultSearchQuery?: string;
-};
+const SearchQuery = (): JSX.Element => {
+  const [fiatMethod, setFiatMethod] = useState<FiatMethod>('BTC');
 
-const SearchQuery = ({}: Props) => {
   const {
     push,
     asPath,
@@ -71,6 +70,10 @@ const SearchQuery = ({}: Props) => {
       setValue('searchQuery', defaultSearchQuery as string);
   }, [defaultSearchQuery, setValue]);
 
+  const handleFiatMethodSwitch = (method: FiatMethod) => {
+    setFiatMethod(method);
+  };
+
   const DetailsComponent = useMemo(
     () =>
       searchType
@@ -114,9 +117,11 @@ const SearchQuery = ({}: Props) => {
           searchType={searchType}
           onSubscribe={onSubscribe}
           isSubscribed={data?.isSubscribed}
-          isLoading={isSubscribeLoading}
+          isSubscribeLoading={isSubscribeLoading}
+          selectedFiatMethod={fiatMethod}
+          onFiatMethodSwitch={handleFiatMethodSwitch}
         >
-          <DetailsComponent {...(data as any)} />
+          <DetailsComponent {...(data as any)} fiatMethod={fiatMethod} />
         </SearchQueryResultWrapper>
       )}
     </div>

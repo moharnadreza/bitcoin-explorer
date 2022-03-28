@@ -31,7 +31,7 @@ const transactionHandler = async (
         `${EXPLORER_API_URLS.TRANSACTION}/${hash}`
       );
 
-    const response = transformTransactionPayload(transaction);
+    const response = await transformTransactionPayload(transaction);
 
     res.status(200).json({ ...response, isSubscribed: !!isSubscribed });
   } catch (error) {
