@@ -1,6 +1,6 @@
 import { instance } from 'config/instance';
 import { API_URLS } from 'config/urls';
-import { QuerySearchParams, Transaction } from '../types';
+import { QuerySearchParams, SearchQueryType, Transaction } from '../types';
 
 export const callGetTransaction = ({ hash, user }: QuerySearchParams) =>
   instance.post<Transaction>(`${API_URLS.TRANSACTION}/${hash}`, {
@@ -12,7 +12,11 @@ export const callGetAddress = ({ hash, user }: QuerySearchParams) =>
     data: user,
   });
 
-export const callSubscribe = ({ hash, user }: QuerySearchParams) =>
+export const callSubscribe = ({
+  hash,
+  user,
+  type,
+}: QuerySearchParams & { type?: SearchQueryType }) =>
   instance.post(`${API_URLS.SUBSCRIBE}`, {
-    data: { user, hash },
+    data: { user, hash, type },
   });

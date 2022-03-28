@@ -49,19 +49,24 @@ const SearchQuery = (): JSX.Element => {
     [searchQuery]
   );
 
-  const { data, refetch, isFetching, onSubscribe, isSubscribeLoading } =
-    useSearchQuery({
-      type: searchType,
-      searchQuery,
-      enabled:
-        Boolean(defaultSearchQuery) &&
-        asPath === `/${searchType?.toLowerCase()}/${searchQuery}`,
-    });
+  const {
+    exploreData,
+    getExploreData,
+    isLoadingExplore,
+    onSubscribe,
+    isSubscribeLoading,
+  } = useSearchQuery({
+    type: searchType,
+    searchQuery,
+    isExploreEnabled:
+      Boolean(defaultSearchQuery) &&
+      asPath === `/${searchType?.toLowerCase()}/${searchQuery}`,
+  });
 
   const onSubmit = async () => {
     if (searchType) {
       push(`/${searchType.toLowerCase()}/${searchQuery}`);
-      return await refetch();
+      return await getExploreData();
     }
   };
 
@@ -106,22 +111,22 @@ const SearchQuery = (): JSX.Element => {
           type="submit"
           icon={<SearchIcon />}
           disabled={!isValid}
-          isLoading={isFetching}
+          isLoading={isLoadingExplore}
         >
           Search
         </Button>
       </form>
 
-      {data && (
+      {exploreData && (
         <SearchQueryResultWrapper
           searchType={searchType}
           onSubscribe={onSubscribe}
-          isSubscribed={data?.isSubscribed}
+          isSubscribed={exploreData?.isSubscribed}
           isSubscribeLoading={isSubscribeLoading}
           selectedFiatMethod={fiatMethod}
           onFiatMethodSwitch={handleFiatMethodSwitch}
         >
-          <DetailsComponent {...(data as any)} fiatMethod={fiatMethod} />
+          <DetailsComponent {...(exploreData as any)} fiatMethod={fiatMethod} />
         </SearchQueryResultWrapper>
       )}
     </div>

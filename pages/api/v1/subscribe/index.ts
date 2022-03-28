@@ -12,7 +12,7 @@ const subscribeHandler = async (
   res: NextApiResponse<Response>
 ) => {
   const {
-    data: { user, hash },
+    data: { user, hash, type },
   } = req.body;
 
   try {
@@ -36,7 +36,7 @@ const subscribeHandler = async (
 
     await supabase
       .from<SubscriptionTableResponse>(SUBSCRIPTION_TABLE_KEY)
-      .upsert({ user, hash })
+      .upsert({ user, hash, type })
       .single();
 
     res.status(200).json({

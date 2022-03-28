@@ -35,7 +35,7 @@ const SearchQueryWrapper = ({
           onClick={onSubscribe}
           isLoading={isSubscribeLoading}
         >
-          {isSubscribed ? 'Unsubscribe' : 'Subscribe'} for the changes
+          {isSubscribed ? 'Unsubscribe' : 'Subscribe'}
         </Button>
 
         <FiatMethodSwitch
