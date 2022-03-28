@@ -24,17 +24,21 @@ const callSearchQueryByType: Record<
 type Params = {
   searchQuery: string;
   type?: SearchQueryType;
-  enabled?: boolean;
+  isExploreEnabled?: boolean;
 };
 
 export const useSearchQuery = ({
   type,
   searchQuery,
-  enabled = false,
+  isExploreEnabled = false,
 }: Params) => {
   const user = getCurrentUser();
 
-  const { data, refetch, isFetching } = useQuery(
+  const {
+    data: exploreData,
+    refetch: getExploreData,
+    isFetching: isLoadingExplore,
+  } = useQuery(
     `/${type}/${searchQuery}`,
     () =>
       type &&
@@ -45,7 +49,7 @@ export const useSearchQuery = ({
       onError: () => {
         toast.error('Failed to load data, try again later.');
       },
-      enabled,
+      enabled: isExploreEnabled,
       retry: false,
       refetchOnWindowFocus: false,
     }
@@ -56,7 +60,7 @@ export const useSearchQuery = ({
     () => callSubscribe({ user, hash: searchQuery, type }),
     {
       onSuccess: async () => {
-        await refetch();
+        await getExploreData();
 
         toast.success('Subscription updated successfully.');
       },
@@ -69,5 +73,11 @@ export const useSearchQuery = ({
     }
   );
 
-  return { data, refetch, isFetching, onSubscribe, isSubscribeLoading };
+  return {
+    exploreData,
+    getExploreData,
+    isLoadingExplore,
+    onSubscribe,
+    isSubscribeLoading,
+  };
 };
