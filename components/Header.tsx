@@ -16,6 +16,7 @@ const Header = () => {
 
       <Button
         onClick={() => push('/subscriptions')}
+        data-cy="subscriptions"
         icon={<BellIcon />}
         size="small"
       >

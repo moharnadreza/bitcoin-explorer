@@ -36,7 +36,10 @@ const Subscriptions = (): JSX.Element => {
   }
 
   return (
-    <div className="bg-gray-50 rounded-2xl p-6 grid grid-cols-1 gap-6">
+    <div
+      className="bg-gray-50 rounded-2xl p-6 grid grid-cols-1 gap-6"
+      data-cy="subscriptionsList"
+    >
       {subscriptions?.map(({ hash, type }) => (
         <div key={hash} className="flex items-center space-x-4">
           <div className="flex-1 truncate flex items-center space-x-1 text-sm">
