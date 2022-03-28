@@ -1,3 +1,5 @@
+import type { SearchQueryType } from 'features/explorer/types';
+
 type TransactionInput = {
   prev_hash: string;
   output_index: number;
@@ -68,4 +70,5 @@ export interface AddressResponse {
 export type SubscriptionTableResponse = {
   user: string;
   hash: string;
+  type: SearchQueryType;
 };
