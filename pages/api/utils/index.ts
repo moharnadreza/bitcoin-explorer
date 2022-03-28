@@ -29,8 +29,12 @@ export const transformTransactionPayload = async ({
   received,
   confirmations,
   isConfirmed: confirmations > 0,
-  inputs: inputs.length,
-  outputs: outputs.length,
+  inputs: await satoshisToFiat(
+    inputs.reduce((current, { output_value }) => current + output_value, 0) || 0
+  ),
+  outputs: await satoshisToFiat(
+    outputs.reduce((current, { value }) => current + value, 0) || 0
+  ),
 });
 
 export const transformAddressPayload = async ({

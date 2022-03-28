@@ -25,8 +25,8 @@ export type Transaction = Subscribed & {
   received: string;
   confirmations: number;
   isConfirmed: boolean;
-  inputs: number;
-  outputs: number;
+  inputs: FiatValue;
+  outputs: FiatValue;
 };
 
 export type Address = Subscribed & {

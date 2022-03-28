@@ -71,12 +71,12 @@ const TransactionInfo = ({
       {
         icon: <DownloadIcon />,
         label: 'Total BTC input',
-        value: inputs,
+        value: inputs[fiatMethod],
       },
       {
         icon: <UploadIcon />,
         label: 'Total BTC output',
-        value: outputs,
+        value: outputs[fiatMethod],
       },
       {
         icon: <CashIcon />,
