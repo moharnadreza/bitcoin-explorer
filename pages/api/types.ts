@@ -68,6 +68,9 @@ export interface AddressResponse {
 }
 
 export type SubscriptionTableResponse = {
+  id: string;
+  created_at: string;
+  confirmations: number;
   user: string;
   hash: string;
   type: SearchQueryType;

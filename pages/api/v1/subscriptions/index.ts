@@ -15,7 +15,8 @@ const subscriptionsHandler = async (
     const { data } = await supabase
       .from<SubscriptionTableResponse>(SUBSCRIPTION_TABLE_KEY)
       .select('*')
-      .eq('user', user);
+      .eq('user', user)
+      .order('created_at', { ascending: false });
 
     return res.status(200).json(data);
   } catch (error) {
