@@ -91,7 +91,7 @@ const SearchQuery = (): JSX.Element => {
     <div className="grid gap-16">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col sm:flex-row items-stretch sm:items-end gap-8 md:gap-4"
+        className="flex flex-col sm:flex-row items-stretch sm:items-end gap-7 md:gap-4"
       >
         <Input
           {...register('searchQuery', {
