@@ -10,11 +10,13 @@ import {
 } from '@heroicons/react/solid';
 import { useMemo } from 'react';
 import { formatDate } from 'utils/formatDate';
-import { satoshisToBTC } from 'utils/satoshisToBTC';
-import type { Transaction } from '../types';
-import AdditionalInfo, { AdditionalInfoProps } from './AdditionalInfo';
+import type { FiatMethod, Transaction } from '../types';
+import type { AdditionalInfoProps } from './AdditionalInfo';
+import AdditionalInfo from './AdditionalInfo';
 
-type Props = Transaction;
+type Props = Transaction & {
+  fiatMethod: FiatMethod;
+};
 
 const TransactionInfo = ({
   hash,
@@ -25,6 +27,7 @@ const TransactionInfo = ({
   inputs,
   outputs,
   received,
+  fiatMethod,
 }: Props): JSX.Element => {
   const transactionFields = useMemo<AdditionalInfoProps[]>(
     () => [
@@ -78,10 +81,20 @@ const TransactionInfo = ({
       {
         icon: <CashIcon />,
         label: 'Total fees',
-        value: satoshisToBTC(fees),
+        value: fees[fiatMethod],
       },
     ],
-    [hash, received, isConfirmed, size, confirmations, inputs, outputs, fees]
+    [
+      hash,
+      received,
+      isConfirmed,
+      size,
+      confirmations,
+      inputs,
+      outputs,
+      fees,
+      fiatMethod,
+    ]
   );
 
   return (

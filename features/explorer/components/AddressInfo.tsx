@@ -6,19 +6,21 @@ import {
   PlusCircleIcon,
 } from '@heroicons/react/solid';
 import { useMemo } from 'react';
-import { satoshisToBTC } from 'utils/satoshisToBTC';
-import type { Address } from '../types';
-import AdditionalInfo, { AdditionalInfoProps } from './AdditionalInfo';
+import type { Address, FiatMethod } from '../types';
+import type { AdditionalInfoProps } from './AdditionalInfo';
+import AdditionalInfo from './AdditionalInfo';
 
-type Props = Address;
+type Props = Address & {
+  fiatMethod: FiatMethod;
+};
 
 const AddressInfo = ({
   confirmedTransactions,
   finalBalance,
   totalReceived,
-  isSubscribed,
   totalBTCSpent,
   totalBTCUnspent,
+  fiatMethod,
 }: Props): JSX.Element => {
   const addressFields = useMemo<AdditionalInfoProps[]>(
     () => [
@@ -31,23 +33,23 @@ const AddressInfo = ({
       {
         icon: <PlusCircleIcon />,
         label: 'Total BTC received',
-        value: satoshisToBTC(totalReceived),
+        value: totalReceived[fiatMethod],
         wrapperClassName: 'col-span-full',
       },
       {
         icon: <CashIcon />,
         label: 'Total BTC spent',
-        value: satoshisToBTC(totalBTCSpent || 0),
+        value: totalBTCSpent[fiatMethod],
       },
       {
         icon: <CreditCardIcon />,
         label: 'Total BTC unspent',
-        value: satoshisToBTC(totalBTCUnspent || 0),
+        value: totalBTCUnspent[fiatMethod],
       },
       {
         icon: <ChartPieIcon />,
         label: 'Current address balance',
-        value: satoshisToBTC(finalBalance),
+        value: finalBalance[fiatMethod],
       },
     ],
     [
@@ -56,6 +58,7 @@ const AddressInfo = ({
       totalReceived,
       totalBTCSpent,
       totalBTCUnspent,
+      fiatMethod,
     ]
   );
 

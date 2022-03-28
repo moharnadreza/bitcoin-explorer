@@ -30,7 +30,7 @@ const addressHandler = async (
       `${EXPLORER_API_URLS.ADDRESS}/${hash}`
     );
 
-    const response = transformAddressPayload(address);
+    const response = await transformAddressPayload(address);
 
     res.status(200).json({ ...response, isSubscribed: !!isSubscribed });
   } catch (error) {

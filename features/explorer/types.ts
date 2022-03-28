@@ -14,9 +14,13 @@ type Subscribed = {
   isSubscribed?: boolean;
 };
 
+export type FiatMethod = 'BTC' | 'USD' | 'EUR';
+
+type FiatValue<T extends string = string> = Record<FiatMethod, T>;
+
 export type Transaction = Subscribed & {
   hash: string;
-  fees: number;
+  fees: FiatValue;
   size: number;
   received: string;
   confirmations: number;
@@ -27,8 +31,8 @@ export type Transaction = Subscribed & {
 
 export type Address = Subscribed & {
   confirmedTransactions: number;
-  totalReceived: number;
-  totalBTCSpent?: number;
-  totalBTCUnspent?: number;
-  finalBalance: number;
+  totalReceived: FiatValue;
+  totalBTCSpent: FiatValue;
+  totalBTCUnspent: FiatValue;
+  finalBalance: FiatValue;
 };
