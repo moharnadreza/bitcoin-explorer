@@ -100,6 +100,7 @@ const SearchQuery = (): JSX.Element => {
               !!getSearchQueryType(searchQuery) ||
               'Please enter an address or transaction hash.',
           })}
+          data-cy="searchQuery"
           placeholder="Search for addresses and transactions..."
           label="Address or transaction hash"
           wrapperClassName="flex-1"
@@ -109,6 +110,7 @@ const SearchQuery = (): JSX.Element => {
 
         <Button
           type="submit"
+          data-cy="submit"
           icon={<SearchIcon />}
           disabled={!isValid}
           isLoading={isLoadingExplore}

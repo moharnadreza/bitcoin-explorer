@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid';
 
-const USER_KEY = 'userID';
+export const USER_KEY = 'userID';
 
 export const createUser = () => {
   const generatedUserID = nanoid(10);

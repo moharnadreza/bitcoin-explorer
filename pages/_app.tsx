@@ -24,6 +24,7 @@ const App = ({ Component, pageProps }: Props) => {
         </MainLayout>
 
         <Toaster
+          containerClassName="toast"
           toastOptions={{
             position: 'top-right',
             duration: 5_000,
