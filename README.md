@@ -1,34 +1,24 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Bitcoin Explorer
 
-## Getting Started
+This project has been created using [Next.js](https://nextjs.org/), TypeScript, [Supabase](https://supabase.com/) for database and [Tailwind CSS](https://tailwindcss.com/) for styling using CSS Modules, which retrieves address and transaction information from the BTC blockchain.
 
-First, run the development server:
+### Setup
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+1. Create a account on Supabase, with the following [configuration](#database-configuration) ([docs](https://supabase.com/docs/guides/with-nextjs)).
+2. Copy `.env.example` into `.env` file.
+3. Install the dependencies using `yarn` command.
+4. Run the development server using `yarn dev` command.
+5. Checkout [`http://localhost:3000`](http://localhost:3000).
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+#### Database configuration
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+After creating the account on Supabase, you'll need have following tables with columns in your database configured:
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+`subscription`:
+| Column | `id` | `created_at` | `user` | `hash` | `type` |
+| :----: | :--: | :----------: | :----: | :----: | :----: |
+| Type | `uuid` | `timestamptz` | `text` | `text` | `text` |
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+### Tests and Cypress
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+This project uses Cypress for E2E tests, to run them you'll need to use `yarn cypress` command (`yarn e2e` will run both development server and Cypress tests concurrently).
