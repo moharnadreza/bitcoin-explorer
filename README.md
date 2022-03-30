@@ -15,10 +15,10 @@ This project has been created using [Next.js](https://nextjs.org/), TypeScript, 
 After creating the account on Supabase, you'll need to configure following tables and columns:
 
 `subscription`:
-| Column | `id` | `created_at` | `user` | `hash` | `type` |
-| :----: | :--: | :----------: | :----: | :----: | :----: |
-| Type | `uuid` | `timestamptz` | `text` | `text` | `text` |
+| Column | `id` | `created_at` | `user` | `hash` | `type` | `confirmations` |
+| :----: | :--: | :----------: | :----: | :----: | :----: | :-------------: |
+| Type | `uuid` | `timestamptz` | `text` | `text` | `text` | `int8` |
 
 ### Tests
 
-This project uses Cypress for E2E testing, and jest for unit tests. To run E2E tests you'll need to use `yarn cypress` command (`yarn e2e` will run both development server and Cypress concurrently) and `yarn test` command for unit tests.
+This project uses Cypress for E2E testing, and Jest for unit tests. To run E2E tests you'll need to use `yarn cypress` command (`yarn e2e` will run both development server and Cypress concurrently) and `yarn test` command for unit tests.
