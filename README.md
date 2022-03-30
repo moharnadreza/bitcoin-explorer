@@ -12,7 +12,7 @@ This project has been created using [Next.js](https://nextjs.org/), TypeScript, 
 
 #### Database configuration
 
-After creating the account on Supabase, you'll need have following tables with columns in your database configured:
+After creating the account on Supabase, you'll need to configure following tables and columns:
 
 `subscription`:
 | Column | `id` | `created_at` | `user` | `hash` | `type` |
