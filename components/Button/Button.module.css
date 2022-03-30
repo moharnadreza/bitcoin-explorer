@@ -14,10 +14,10 @@
 
 /* color scheme */
 .indigo {
-  @apply text-white !bg-indigo-700 hover:bg-indigo-800 focus:ring-indigo-600;
+  @apply text-white !bg-indigo-700 hover:!bg-indigo-800 focus:ring-indigo-600;
 }
 .gray {
-  @apply text-white !bg-gray-700 hover:bg-gray-800 focus:ring-gray-600;
+  @apply text-white !bg-gray-700 hover:!bg-gray-800 focus:ring-gray-600;
 }
 
 /* size */
