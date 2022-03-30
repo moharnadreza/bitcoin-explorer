@@ -17,44 +17,42 @@ const MainLayout = ({ children }: Props): JSX.Element => {
 
   supabase
     .from<SubscriptionTableResponse>(SUBSCRIPTION_TABLE_KEY)
-    .on('*', ({ eventType, new: message }) => {
-      if (eventType === 'UPDATE') {
-        toast(
-          (t) => (
-            <div className="flex flex-col gap-2">
-              <span className="break-word">
-                Some changes detected on this subscribed hash:{' '}
-                <code className="break-all font-bold">{message.hash}</code>
-              </span>
-              <div className="flex items-center justify-end space-x-2">
-                <Button
-                  icon={<XCircleIcon />}
-                  colorScheme="gray"
-                  size="small"
-                  onClick={() => toast.dismiss(t.id)}
-                >
-                  Dismiss
-                </Button>
+    .on('UPDATE', ({ new: message }) => {
+      toast(
+        (t) => (
+          <div className="flex flex-col gap-2">
+            <span className="break-word">
+              Some changes detected on this subscribed hash:{' '}
+              <code className="break-all font-bold">{message.hash}</code>
+            </span>
+            <div className="flex items-center justify-end space-x-2">
+              <Button
+                icon={<XCircleIcon />}
+                colorScheme="gray"
+                size="small"
+                onClick={() => toast.dismiss(t.id)}
+              >
+                Dismiss
+              </Button>
 
-                <Button
-                  icon={<InformationCircleIcon />}
-                  size="small"
-                  onClick={() => {
-                    push(`/${message.type.toLowerCase()}/${message.hash}`);
-                    toast.dismiss(t.id);
-                  }}
-                >
-                  View Details
-                </Button>
-              </div>
+              <Button
+                icon={<InformationCircleIcon />}
+                size="small"
+                onClick={() => {
+                  push(`/${message.type.toLowerCase()}/${message.hash}`);
+                  toast.dismiss(t.id);
+                }}
+              >
+                View Details
+              </Button>
             </div>
-          ),
-          {
-            duration: 50_000,
-            icon: '🔔',
-          }
-        );
-      }
+          </div>
+        ),
+        {
+          duration: 50_000,
+          icon: '🔔',
+        }
+      );
     })
     .subscribe();
 
