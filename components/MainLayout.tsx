@@ -1,9 +1,10 @@
 import { InformationCircleIcon, XCircleIcon } from '@heroicons/react/solid';
 import { useRouter } from 'next/router';
 import { SUBSCRIPTION_TABLE_KEY } from 'pages/api/config';
-import { SubscriptionTableResponse } from 'pages/api/types';
+import type { SubscriptionTableResponse } from 'pages/api/types';
 import { supabase } from 'pages/api/utils/supabase';
-import { ReactNode, useEffect } from 'react';
+import type { ReactNode } from 'react';
+import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import { getCurrentUser } from 'utils/getCurrentUser';
 import Button from './Button';
