@@ -9,6 +9,7 @@
     "lint": "next lint",
     "cypress": "cypress open",
     "cypress:headless": "cypress run",
+    "e2e": "concurrently \"yarn dev\" \"yarn cypress\"",
     "lint-staged": "lint-staged",
     "prepare": "husky install"
   },
@@ -20,6 +21,7 @@
     "bitcoin-address-validation": "^2.2.1",
     "bitcoin-conversion": "^0.3.0",
     "classnames": "^2.3.1",
+    "concurrently": "^7.0.0",
     "luxon": "^2.3.1",
     "nanoid": "^3.3.1",
     "next": "12.1.1",

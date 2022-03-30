@@ -21,4 +21,4 @@ After creating the account on Supabase, you'll need have following tables with c
 
 ### Tests and Cypress
 
-This project uses Cypress for E2E tests, to run them you'll need to use `yarn cypress` command (`yarn e2e` will run both development server and Cypress tests concurrently).
+This project uses Cypress for E2E tests, to run them you'll need to use `yarn cypress` command (`yarn e2e` will run both development server and Cypress concurrently).
