@@ -24,7 +24,7 @@ const SearchQueryWrapper = ({
   isSubscribed,
 }: Props) => {
   return (
-    <div className="bg-gray-50 rounded-2xl p-6 grid grid-cols-1 sm:grid-cols-2 gap-6">
+    <div className="bg-gray-50 rounded-2xl p-6 grid grid-cols-1 sm:grid-cols-2 gap-5">
       <div className="col-span-full flex flex-col sm:flex-row items-center border-b-2 border-gray-300 pb-6 gap-4">
         <h2 className="flex-1 font-bold" data-cy="searchType">
           {searchType}

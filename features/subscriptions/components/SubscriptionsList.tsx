@@ -37,7 +37,7 @@ const Subscriptions = (): JSX.Element => {
 
   return (
     <div
-      className="bg-gray-50 rounded-2xl p-6 grid grid-cols-1 gap-6"
+      className="bg-gray-50 rounded-2xl p-6 grid grid-cols-1 gap-5"
       data-cy="subscriptionsList"
     >
       {subscriptions?.map(({ hash, type }) => (

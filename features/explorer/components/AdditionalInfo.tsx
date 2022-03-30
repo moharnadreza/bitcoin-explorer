@@ -41,7 +41,7 @@ const AdditionalInfo = ({
       <IconComponent icon={icon} />
       <div className="flex-1 truncate flex items-center space-x-1 text-sm">
         <span className="font-medium">{label}:</span>
-        <span className="flex-1 truncate">{value}</span>
+        <span className="flex-1 py-1 truncate">{value}</span>
       </div>
 
       {isCopyEnabled && (
