@@ -19,6 +19,6 @@ After creating the account on Supabase, you'll need to configure following table
 | :----: | :--: | :----------: | :----: | :----: | :----: |
 | Type | `uuid` | `timestamptz` | `text` | `text` | `text` |
 
-### Tests and Cypress
+### Tests
 
-This project uses Cypress for E2E tests, to run them you'll need to use `yarn cypress` command (`yarn e2e` will run both development server and Cypress concurrently).
+This project uses Cypress for E2E testing, and jest for unit tests. To run E2E tests you'll need to use `yarn cypress` command (`yarn e2e` will run both development server and Cypress concurrently) and `yarn test` command for unit tests.
