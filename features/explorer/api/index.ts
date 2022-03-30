@@ -1,6 +1,6 @@
 import { instance } from 'config/instance';
 import { API_URLS } from 'config/urls';
-import { QuerySearchParams, SearchQueryType, Transaction } from '../types';
+import type { QuerySearchParams, SearchQueryType, Transaction } from '../types';
 
 export const callGetTransaction = ({ hash, user }: QuerySearchParams) =>
   instance.post<Transaction>(`${API_URLS.TRANSACTION}/${hash}`, {
