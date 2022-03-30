@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { FiatMethod } from 'features/explorer/types';
+import type { FiatMethod } from 'features/explorer/types';
 import styles from './FiatMethodSwitch.module.css';
 
 type Props = {

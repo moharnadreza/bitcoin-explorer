@@ -1,4 +1,4 @@
-import { SearchQueryType } from 'features/explorer/types';
+import type { SearchQueryType } from 'features/explorer/types';
 
 export type GetSubscriptionsParams = {
   user?: string;
