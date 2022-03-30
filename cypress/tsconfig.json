@@ -5,5 +5,5 @@
     "types": ["cypress", "./support"],
     "baseUrl": "../"
   },
-  "include": ["**/*.ts"]
+  "include": ["**/*.spec.ts"]
 }
