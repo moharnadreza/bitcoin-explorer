@@ -8,9 +8,8 @@ import type {
 } from 'pages/api/types';
 import { supabase } from 'pages/api/utils/supabase';
 
-const EXPLORER_API_URLS_BY_TYPE = {
-  ADDRESS: EXPLORER_API_URLS.ADDRESS,
-  TRANSACTION: EXPLORER_API_URLS.TRANSACTION,
+const joinSubscribedHashes = (hashes: string[]): string => {
+  return hashes.join(';');
 };
 
 const subscriptionsCronJobHandler = async (
@@ -22,21 +21,75 @@ const subscriptionsCronJobHandler = async (
       .from<SubscriptionTableResponse>(SUBSCRIPTION_TABLE_KEY)
       .select('*');
 
-    for (const { user, hash, type, confirmations } of data || []) {
-      const { data: info } = await explorerInstance.get<
-        AddressResponse | TransactionResponse
-      >(`${EXPLORER_API_URLS_BY_TYPE[type]}/${hash}`);
+    const subscribedHashes = data || [];
 
-      const notifications =
-        // @ts-expect-error
-        type === 'ADDRESS' ? info?.final_n_tx : info?.confirmations;
+    const subscribedAddresses = subscribedHashes
+      .filter(({ type }) => type === 'ADDRESS')
+      .map(({ hash }) => hash);
 
-      if (confirmations !== notifications) {
-        await supabase
-          .from<SubscriptionTableResponse>(SUBSCRIPTION_TABLE_KEY)
-          .update({ confirmations: notifications })
-          .eq('user', user)
-          .eq('hash', hash);
+    const isAddessSingular = subscribedAddresses.length === 1;
+
+    const addressesToUpdate = isAddessSingular
+      ? subscribedAddresses[0]
+      : joinSubscribedHashes(subscribedAddresses);
+
+    if (addressesToUpdate !== '') {
+      const { data: addressesInfo } = await explorerInstance.get<
+        AddressResponse[]
+      >(`${EXPLORER_API_URLS.ADDRESS}/${addressesToUpdate}`);
+
+      for (const { user, hash, confirmations } of subscribedHashes.filter(
+        ({ type }) => type === 'ADDRESS'
+      )) {
+        const notifications = isAddessSingular
+          ? (addressesInfo as unknown as AddressResponse).final_n_tx
+          : addressesInfo.find(({ address }) => address === hash)?.final_n_tx;
+
+        if (confirmations !== notifications) {
+          await supabase
+            .from<SubscriptionTableResponse>(SUBSCRIPTION_TABLE_KEY)
+            .update({
+              confirmations: notifications,
+            })
+            .eq('user', user)
+            .eq('hash', hash);
+        }
+      }
+    }
+
+    const subscribedTransactions = subscribedHashes
+      .filter(({ type }) => type === 'TRANSACTION')
+      .map(({ hash }) => hash);
+
+    const isTransactionSingular = subscribedTransactions.length === 1;
+
+    const transactionsToUpdate = isTransactionSingular
+      ? subscribedTransactions[0]
+      : joinSubscribedHashes(subscribedTransactions);
+
+    if (transactionsToUpdate !== '') {
+      const { data: transactionsInfo } = await explorerInstance.get<
+        TransactionResponse[]
+      >(`${EXPLORER_API_URLS.TRANSACTION}/${transactionsToUpdate}`);
+
+      for (const { user, hash, confirmations } of subscribedHashes.filter(
+        ({ type }) => type === 'TRANSACTION'
+      )) {
+        const notifications = isTransactionSingular
+          ? (transactionsInfo as unknown as TransactionResponse)?.confirmations
+          : transactionsInfo.find(
+              ({ hash: transactionHash }) => transactionHash === hash
+            )?.confirmations;
+
+        if (confirmations !== notifications) {
+          await supabase
+            .from<SubscriptionTableResponse>(SUBSCRIPTION_TABLE_KEY)
+            .update({
+              confirmations: notifications,
+            })
+            .eq('user', user)
+            .eq('hash', hash);
+        }
       }
     }
 
