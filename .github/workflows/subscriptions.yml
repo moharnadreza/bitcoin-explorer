@@ -1,12 +1,12 @@
-name: Subscriptions cron job
+name: subscriptions cron job
 on:
   schedule:
-    - cron: '*/1 * * * *'
+    - cron: '*/10 * * * *'
 jobs:
   cron:
     runs-on: ubuntu-latest
     steps:
-      - name: Check for updates on subscribed addresses and transactions
+      - name: check for updates on subscribed addresses and transactions
         run: |
           curl --request GET \
           --url 'https://bitcoin-explorer.vercel.app/api/v1/subscriptions/subscriptionsCronJob'
