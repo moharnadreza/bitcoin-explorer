@@ -1,6 +1,6 @@
 ## Bitcoin Explorer
 
-This project has been created using [Next.js](https://nextjs.org/), TypeScript, [Supabase](https://supabase.com/) for database and [Tailwind CSS](https://tailwindcss.com/) for styling using CSS Modules, which retrieves address and transaction information from the BTC blockchain.
+This project has been created using [Next.js](https://nextjs.org/), TypeScript, [Supabase](https://supabase.com/) for database and [Tailwind CSS](https://tailwindcss.com/) for styling using CSS Modules, which retrieves address and transaction information from the BTC blockchain. It also uses GitHub actions for running cron job and Supabase's realtime database, in order to listen for changes and display notifications to the user on subscribed hashes.
 
 ### Setup
 
